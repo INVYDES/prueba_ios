@@ -15,20 +15,21 @@ import os from 'os';
 
 const PORT = 9100;
 
-// Obtener la IP local de tu PC para que la copies a la app
-function getLocalIp() {
+// Obtener todas las IPs locales de la PC
+function getLocalIps() {
   const interfaces = os.networkInterfaces();
+  const ips = [];
   for (const name of Object.keys(interfaces)) {
     for (const iface of interfaces[name] || []) {
       if (iface.family === 'IPv4' && !iface.internal) {
-        return iface.address;
+        ips.push({ name, address: iface.address });
       }
     }
   }
-  return '127.0.0.1';
+  return ips;
 }
 
-const localIp = getLocalIp();
+const localIps = getLocalIps();
 
 const server = net.createServer((socket) => {
   const clientAddress = `${socket.remoteAddress}:${socket.remotePort}`;
@@ -65,9 +66,12 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`\x1b[1m🖨️  SIMULADOR DE IMPRESORA TÉRMICA ESC/POS ACTIVO\x1b[0m`);
   console.log(`============================================================`);
   console.log(`📡 Tu PC está escuchando en el puerto: \x1b[33m${PORT}\x1b[0m`);
-  console.log(`🌐 Dirección IP local de esta PC:     \x1b[32m\x1b[1m${localIp}\x1b[0m`);
+  console.log(`🌐 Direcciones IP detectadas en esta PC:`);
+  for (const item of localIps) {
+    console.log(`   * \x1b[32m\x1b[1m${item.address}\x1b[0m (${item.name})`);
+  }
   console.log(`------------------------------------------------------------`);
-  console.log(`👉 En tu iPhone, pon esta IP: \x1b[32m${localIp}\x1b[0m y puerto \x1b[33m${PORT}\x1b[0m`);
+  console.log(`👉 En tu iPhone, pon una de estas IPs y puerto \x1b[33m${PORT}\x1b[0m`);
   console.log(`   Luego pulsa "Imprimir Comanda de Prueba" en la app.`);
   console.log(`============================================================\n`);
 });
