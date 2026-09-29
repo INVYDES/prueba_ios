@@ -25,6 +25,16 @@ const abrirWeb = () => {
   window.location.href = targetUrl.value;
 };
 
+// Cerrar WebView y volver al menú principal de prueba
+const cerrarWeb = () => {
+  isWebViewActive.value = false;
+};
+
+// Recargar el contenido del WebView
+const recargarWeb = () => {
+  iframeKey.value++;
+};
+
 // Navegación directa alternativa
 const abrirWebDirecta = () => {
   window.location.href = targetUrl.value;
