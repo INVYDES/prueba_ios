@@ -12,6 +12,7 @@
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		EA1000012058CBB4000EE86E /* EasyOrderPrinterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1000002058CBB4000EE86E /* EasyOrderPrinterPlugin.swift */; };
 		EA1000032058CBB4000EE86E /* EasyOrderPrinterPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1000022058CBB4000EE86E /* EasyOrderPrinterPlugin.m */; };
+		EA2000012058CBB4000EE86E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2000002058CBB4000EE86E /* ViewController.swift */; };
 		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
@@ -26,6 +27,7 @@
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA1000002058CBB4000EE86E /* EasyOrderPrinterPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyOrderPrinterPlugin.swift; sourceTree = "<group>"; };
 		EA1000022058CBB4000EE86E /* EasyOrderPrinterPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyOrderPrinterPlugin.m; sourceTree = "<group>"; };
+		EA2000002058CBB4000EE86E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		504EC30C1FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		504EC30E1FED79650016851F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				504EC3071FED79650016851F /* AppDelegate.swift */,
 				EA1000002058CBB4000EE86E /* EasyOrderPrinterPlugin.swift */,
 				EA1000022058CBB4000EE86E /* EasyOrderPrinterPlugin.m */,
+				EA2000002058CBB4000EE86E /* ViewController.swift */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
 				504EC30E1FED79650016851F /* Assets.xcassets */,
 				504EC3101FED79650016851F /* LaunchScreen.storyboard */,
@@ -218,6 +221,7 @@
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
 				EA1000012058CBB4000EE86E /* EasyOrderPrinterPlugin.swift in Sources */,
 				EA1000032058CBB4000EE86E /* EasyOrderPrinterPlugin.m in Sources */,
+				EA2000012058CBB4000EE86E /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
