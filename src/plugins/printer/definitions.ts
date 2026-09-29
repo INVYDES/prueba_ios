@@ -58,5 +58,5 @@ export interface EasyOrderPrinterPlugin {
   /**
    * Comprueba si el host y puerto de la impresora responden en la red local
    */
-  checkStatus(options: { ip: string; port?: number }): Promise<PrinterStatusResult>;
+  checkStatus(options: { ip: string; port?: number; timeoutMs?: number }): Promise<PrinterStatusResult>;
 }

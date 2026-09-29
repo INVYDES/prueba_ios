@@ -23,7 +23,7 @@ class EasyOrderPrinterWeb implements EasyOrderPrinterPlugin {
     };
   }
 
-  async checkStatus(options: { ip: string; port?: number }): Promise<PrinterStatusResult> {
+  async checkStatus(options: { ip: string; port?: number; timeoutMs?: number }): Promise<PrinterStatusResult> {
     console.warn('[EasyOrderPrinter - Web Mock] Consulta de estado simulada:', options);
     return {
       connected: true,
