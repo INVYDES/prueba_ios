@@ -18,27 +18,16 @@ onMounted(() => {
   isNativeApp.value = Capacitor.isNativePlatform();
 });
 
-// Acción principal: Abrir Web dentro de la aplicación (In-App WebView)
+// Acción principal: Abrir Web dentro de la aplicación mediante WKWebView nativo
 const abrirWeb = () => {
-  // Asegura que se abra en el WebView interno sin salir a Safari
-  isWebViewActive.value = true;
+  // Al estar configurado 'allowNavigation' en capacitor.config.ts,
+  // la navegación permanece 100% dentro de la app sin abrir Safari.
+  window.location.href = targetUrl.value;
 };
 
-// Cerrar WebView y volver al menú principal de prueba
-const cerrarWeb = () => {
-  isWebViewActive.value = false;
-};
-
-// Recargar el contenido del WebView
-const recargarWeb = () => {
-  iframeKey.value++;
-};
-
-// Navegación alternativa directa de la ventana raíz de Capacitor
+// Navegación directa alternativa
 const abrirWebDirecta = () => {
-  if (confirm(`¿Deseas redirigir la ventana principal de la app a ${targetUrl.value}? Permanecerá dentro de la app sin abrir Safari.`)) {
-    window.location.href = targetUrl.value;
-  }
+  window.location.href = targetUrl.value;
 };
 
 // Demostración de la arquitectura de impresión Fase 2
