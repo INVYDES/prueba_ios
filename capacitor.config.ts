@@ -12,12 +12,11 @@ const config: CapacitorConfig = {
 
   // Configuración del servidor WebView
   server: {
-    // Si en el futuro deseas que la app cargue directamente tu web en la nube
-    // al iniciar (en lugar del menú local), puedes descomentar la línea 'url':
-    // url: 'https://eorder.mx/',
+    // Al abrir la app en el iPhone, arranca directo en tu sistema web:
+    url: 'https://eorder.mx/',
     androidScheme: 'https',
     iosScheme: 'https',
-    // IMPORTANTE: Permite navegar a estos dominios DENTRO del WebView sin abrir Safari
+    // Permite navegar a estos dominios DENTRO del WebView sin abrir Safari
     allowNavigation: [
       'eorder.mx',
       '*.eorder.mx',
