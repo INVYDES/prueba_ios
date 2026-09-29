@@ -1,0 +1,61 @@
+name: Compilar iOS (Cloud Build)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Permite ejecutar la compilación manualmente con un clic en GitHub
+
+jobs:
+  build-ios:
+    runs-on: macos-14 # Máquina virtual Mac con macOS Sonoma y Xcode 15/16 oficial de Apple
+
+    steps:
+      - name: 1. Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 3. Instalar dependencias de Javascript y Capacitor
+        run: npm install
+
+      - name: 4. Compilar aplicación Vue 3
+        run: npm run build
+
+      - name: 5. Sincronizar Capacitor con iOS
+        run: npx cap sync ios
+
+      - name: 6. Instalar CocoaPods en el entorno macOS
+        run: |
+          cd ios/App
+          pod install
+
+      - name: 7. Compilar aplicación iOS (xcodebuild)
+        run: |
+          cd ios/App
+          # Compilación limpia para dispositivo iOS (arm64)
+          xcodebuild clean archive \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -destination "generic/platform=iOS" \
+            -archivePath build/EasyOrderTest.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""
+
+      - name: 8. Empaquetar Payload .IPA
+        run: |
+          cd ios/App/build/EasyOrderTest.xcarchive/Products/Applications
+          mkdir -p Payload
+          cp -r App.app Payload/
+          zip -r EasyOrderTest-Unsigned.ipa Payload
+
+      - name: 9. Subir archivo IPA como Artefacto descargable
+        uses: actions/upload-artifact@v4
+        with:
+          name: EasyOrderTest-IPA
+          path: ios/App/build/EasyOrderTest.xcarchive/Products/Applications/EasyOrderTest-Unsigned.ipa
+          retention-days: 7
