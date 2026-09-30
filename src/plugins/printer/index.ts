@@ -31,6 +31,12 @@ class EasyOrderPrinterWeb implements EasyOrderPrinterPlugin {
       message: `Impresora en ${options.ip}:${options.port ?? 9100} simulada OK.`
     };
   }
+
+  async printCurrentPage(): Promise<{ completed: boolean }> {
+    console.warn('[EasyOrderPrinter - Web Mock] Solicitud de AirPrint interceptada.');
+    window.print();
+    return { completed: true };
+  }
 }
 
 export const Printer = registerPlugin<EasyOrderPrinterPlugin>('EasyOrderPrinter', {

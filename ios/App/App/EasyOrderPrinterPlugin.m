@@ -7,4 +7,5 @@
 CAP_PLUGIN(EasyOrderPrinterPlugin, "EasyOrderPrinter",
     CAP_PLUGIN_METHOD(print, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(checkStatus, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(printCurrentPage, CAPPluginReturnPromise);
 )

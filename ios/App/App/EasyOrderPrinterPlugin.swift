@@ -16,7 +16,8 @@ public class EasyOrderPrinterPlugin: CAPPlugin, CAPBridgedPlugin {
     public let jsName = "EasyOrderPrinter"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "print", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "checkStatus", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "checkStatus", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "printCurrentPage", returnType: CAPPluginReturnPromise)
     ]
 
     /**
@@ -167,6 +168,33 @@ public class EasyOrderPrinterPlugin: CAPPlugin, CAPBridgedPlugin {
                 hasFinished = true
                 connection.cancel()
                 call.reject("Tiempo de espera agotado al conectar a \(ip):\(portNum). Verifica que la impresora esté encendida y en la misma red Wi-Fi.")
+            }
+        }
+    }
+
+    /**
+     * Levanta el diálogo oficial de Apple AirPrint para imprimir la página actual en impresoras Wi-Fi normales
+     */
+    @objc func printCurrentPage(_ call: CAPPluginCall) {
+        DispatchQueue.main.async {
+            guard let webView = self.bridge?.webView else {
+                call.reject("WebView no disponible para impresión.")
+                return
+            }
+
+            let printController = UIPrintInteractionController.shared
+            let printInfo = UIPrintInfo(dictionary: nil)
+            printInfo.outputType = .general
+            printInfo.jobName = "Documento EasyOrder"
+            printController.printInfo = printInfo
+            printController.printFormatter = webView.viewPrintFormatter()
+
+            printController.present(animated: true) { (controller, completed, error) in
+                if let error = error {
+                    call.reject("Error de impresión AirPrint: \(error.localizedDescription)")
+                } else {
+                    call.resolve(["completed": completed])
+                }
             }
         }
     }
