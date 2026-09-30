@@ -17,7 +17,9 @@ public class EasyOrderPrinterPlugin: CAPPlugin, CAPBridgedPlugin {
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "print", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "checkStatus", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "printCurrentPage", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "printCurrentPage", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getSettings", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setSettings", returnType: CAPPluginReturnPromise)
     ]
 
     /**
@@ -198,4 +200,31 @@ public class EasyOrderPrinterPlugin: CAPPlugin, CAPBridgedPlugin {
             }
         }
     }
+
+    /**
+     * Obtiene la configuración de la impresora guardada en UserDefaults
+     */
+    @objc func getSettings(_ call: CAPPluginCall) {
+        let ip = UserDefaults.standard.string(forKey: "printer_ip") ?? ""
+        let port = UserDefaults.standard.integer(forKey: "printer_port")
+        call.resolve([
+            "ip": ip,
+            "port": port == 0 ? 9100 : port
+        ])
+    }
+
+    /**
+     * Guarda la configuración de la impresora en UserDefaults
+     */
+    @objc func setSettings(_ call: CAPPluginCall) {
+        if let ip = call.getString("ip") {
+            UserDefaults.standard.set(ip.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "printer_ip")
+        }
+        if let port = call.getInt("port") {
+            UserDefaults.standard.set(port, forKey: "printer_port")
+        }
+        UserDefaults.standard.synchronize()
+        call.resolve(["success": true])
+    }
 }
+
